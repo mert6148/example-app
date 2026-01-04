@@ -1,0 +1,13 @@
+*{
+    margin: auto;
+    align-self: start;
+    background-color: aqua;
+}
+
+html,
+body{
+    background-color: aqua;
+    font: 1em sans-serif;
+    grid-template-columns: minmax();
+    word-break: break-all;
+}
