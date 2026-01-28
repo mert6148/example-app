@@ -23,4 +23,10 @@ class ContactController extends Controller
 
         return back()->with('success', 'Mesajınız başarıyla gönderildi.');
     }
+
+    public function about()
+    {
+        return view('contact.about');
+    }
+
 }

@@ -1,4 +1,4 @@
-<script>
+<script idate="contact-script">
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
 

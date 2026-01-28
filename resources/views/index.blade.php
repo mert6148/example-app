@@ -94,6 +94,30 @@
     @include('contact.script')
 @endsection
 
+@if (Auth::check())
+    @include('contact.login')
+    <data value="user_authenticated">
+        <h1><a href="{{ route('login') }}">Login</a></h1>
+        <p>Kullanıcı giriş yapmış durumda.</p>
+        <strong><a href="{{ route('login') }}">Login</a></strong>
+    </data>
+
+@else
+    @include('contact.guest')
+    <data value="user_guest">
+        <h1><a href="{{ route('login') }}">Login</a></h1>
+        <p>Kullanıcı giriş yapmamış durumda.</p>
+        <strong><a href="{{ route('login') }}">Login</a></strong>
+    </data>
+@endelse
+
+    @include('contact.form')
+    <data value="user_form">
+        <h1><a href="{{ route('login') }}">Login</a></h1>
+        <p>Kullanıcı formu görüntülüyor.</p>
+        <strong><a href="{{ route('login') }}">Login</a></strong>
+    </data>
+@endif
 
 
 </body>

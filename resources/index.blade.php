@@ -37,5 +37,13 @@
            </div>
        </div>
     </section>
+    @endsection
+
+    @if
+    <div>
+        <p>This is a conditional section.</p>
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ipsum suscipit unde, inventore porro dolorem expedita veniam blanditiis exercitationem quo nam accusantium recusandae fuga perferendis nesciunt laboriosam, aliquid saepe repellendus.</h1>
+    </div>
+    @endif
 </body>
 </html>

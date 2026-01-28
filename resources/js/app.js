@@ -81,3 +81,29 @@ document.getElementById("form").addEventListener("submit", function(event) {
     // Clear the input field
     document.getElementById("input").value = "";
 });
+
+const button = document.getElementById('myButton');
+button.addEventListener('click', () => {
+    alert('Button clicked!');
+});
+document.getElementById('myButton').addEventListener('click', function() {
+    alert('Button clicked!');
+});
+
+const inputField = document.getElementById('myInput');
+inputField.addEventListener('input', (event) => {
+    console.log('Input changed:', event.target.value);
+});
+document.getElementById('myInput').addEventListener('input', function(event) {
+    console.log('Input changed:', event.target.value);
+});
+
+const form = document.getElementById('myForm');
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log('Form submitted');
+});
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+    console.log('Form submitted');
+});

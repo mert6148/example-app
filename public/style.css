@@ -1,13 +1,65 @@
 *{
     margin: auto;
     align-self: start;
-    background-color: aqua;
+    background-color: rgb(219, 187, 3);
 }
 
 html,
 body{
-    background-color: aqua;
+    background-color: rgb(104, 19, 173);
     font: 1em sans-serif;
     grid-template-columns: minmax();
     word-break: break-all;
+}
+
+h1,
+p
+{
+    color: rgb(199, 10, 10);
+    text-align: center;
+}
+
+h2,
+p
+{
+    color: rgb(7, 24, 0);
+    text-align: center;
+}
+
+h3,
+p
+{
+    color: aqua;
+    text-align: center;
+}
+
+.container{
+    width: 80%;
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid rgb(134, 134, 243);
+    border-radius: 10px;
+    background-color: lightgray;
+}
+
+button{
+    background-color: rgb(104, 19, 173);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: rgb(199, 10, 10);
+    src: format(disable);
+    display: none;
+    right: calc(50% - 50px);
+}
+
+select{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(134, 134, 243);
 }

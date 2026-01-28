@@ -2,7 +2,9 @@
 
 namespace App\Exception;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class  UserNotFoundException extends \Exception
 {
@@ -25,7 +27,8 @@ class DatabaseConnectionException extends \Exception
             /**
              * @throws \Exception
              * @param void
-             * @return {@link Response}
+
+            * @return {@link Response}
              */
         }
     }

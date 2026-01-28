@@ -28,3 +28,27 @@
 
     </div>
 @endsection
+
+@if(session('success'))
+    <div class="{{ session('success') }}">
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <a class="navbar-brand">Başarılı</a>
+            <span class="navbar-text">
+                {{ session('success') }}
+            </span>
+        </nav>
+    </div>
+
+    <div class="{{ section('scripts') }}">
+        <script>
+            setTimeout(function() {
+                document.querySelector('.{{ session('success') }}').style.display = 'none';
+            }, 3000);
+        </script>
+
+    </div>
+@endif
+
+@section('scripts')
+    <script src="{{ asset('js/app.js') }}" defer></script>
+@endsection
