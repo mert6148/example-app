@@ -26,7 +26,23 @@ class ContactController extends Controller
 
     public function about()
     {
-        return view('contact.about');
+        $request = request()->validate([
+            'name' => 'required|min:3',
+        ]);
     }
 
+    public function contact()
+    {
+        $_SERVER = [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'password',
+        ];
+    }
+
+    public function privacy()
+    {
+        $_SESSION = [
+            'privacy' => 'value',
+        ];
+    }
 }
