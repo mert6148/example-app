@@ -1,13 +1,25 @@
 /**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
+ * Bootstrap ve jQuery kütüphaneleri
  */
+import jQuery from 'jquery';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 
+window.$ = window.jQuery = jQuery;
+
+/**
+ * Axios HTTP kütüphanesi - CSRF token desteği ile
+ */
 import axios from 'axios';
 window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// CSRF token ayarı
+const token = document.querySelector('meta[name="csrf-token"]');
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.getAttribute('content');
+}
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

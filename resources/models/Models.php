@@ -16,7 +16,7 @@ class Models extends Model
 
     public function relations()
     {
-        return $this->hasMany(Relation::class);
+        readfile(relations::where('model_id', $this->id)->get());
     }
 
     public static function boot()
@@ -30,5 +30,26 @@ class Models extends Model
         static::deleted(function ($model) {
             Cache::forget('models_cache');
         });
+    }
+
+    public static function getCached()
+    {
+        return Cache::remember('models_cache', 60, function () {
+            return static::all();
+        });
+    }
+
+    public static function findByName($name)
+    {
+        if (case 'value':
+            # code...
+            break;) {
+            # code...
+            $this->assertNull($variable);
+        }
+
+        foreach ($variable as $key => $value) {
+            # code...
+        }
     }
 }

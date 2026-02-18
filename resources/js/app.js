@@ -1,109 +1,196 @@
+/**
+ * Bootstrap ve Vue uygulaması
+ */
 import './bootstrap';
-import '../css/app.css'
+import '../css/app.css';
+import { createApp } from 'vue';
 import App from './App.vue';
+import { Kernel, Router } from './kernel';
+import * as jQuery from './jquery.min.js';
 
-createApp (App).mount('#app');
+/**
+ * Vue uygulamasını oluştur ve mount et
+ */
+const app = createApp(App);
 
+// Vue uygulamasını global window'a ekle
+window.vueApp = app;
+
+app.mount('#app');
+
+/**
+ * DOM Ready'de jQuery ve Kernel başlat
+ */
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('form');
-    const input = document.getElementById('input');
-    const todosUL = document.getElementById('todos');
-    const todos = JSON.parse(localStorage.getItem('todos'));
+    // jQuery helpers'ı başlat
+    jQuery.init();
 
-    if (todos) {
-        todos.forEach(todo => addTodo(todo));
+    // Kernel'ı başlat
+    const kernel = new Kernel();
+    const router = kernel.getRouter();
+
+    kernel.use(() => console.log('✓ Bootstrap tamamlandı'));
+    kernel.bootstrap();
+
+    // Global window scope'a ekle
+    window.kernel = kernel;
+    window.router = router;
+
+    /**
+     * Todo uygulaması
+     */
+    initTodoApp();
+});
+
+/**
+ * Todo uygulaması
+ */
+function initTodoApp() {
+    const formEl = document.getElementById('form');
+    const inputEl = document.getElementById('input');
+    const todosListEl = document.getElementById('todos');
+
+    if (!formEl || !inputEl || !todosListEl) {
+        console.warn('Todo uygulaması DOM elemanları bulunamadı');
+        return;
     }
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        addTodo();
+    // Kaydedilmiş todo'ları yükle
+    const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+    savedTodos.forEach(todo => addTodoToDOM(todo));
+
+    // Form gönder event'i
+    formEl.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const todoText = inputEl.value.trim();
+        if (!todoText) return;
+
+        const todo = {
+            id: Date.now(),
+            text: todoText,
+            completed: false
+        };
+
+        addTodoToDOM(todo);
+        saveTodos();
+        inputEl.value = '';
+        inputEl.focus();
     });
 
-    function addTodo(todo) {
-        let todoText = input.value;
+    /**
+     * Todo'yu DOM'a ekle
+     */
+    function addTodoToDOM(todo) {
+        const li = document.createElement('li');
+        li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+        li.dataset.id = todo.id;
+        li.textContent = todo.text;
 
-        if (todo) {
-            todoText = todo.text;
-        }
-
-        if (todoText) {
-            const todoEl = document.createElement('li');
-            if (todo && todo.completed) {
-                todoEl.classList.add('completed');
-            }
-
-            todoEl.innerText = todoText;
-
-            todoEl.addEventListener('click', () => {
-                todoEl.classList.toggle('completed');
-                updateLS();
-            });
-
-            todoEl.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-                todoEl.remove();
-                updateLS();
-            });
-
-            todosUL.appendChild(todoEl);
-            input.value = '';
-            updateLS();
-        }
-    }
-
-    function updateLS() {
-        const todosEl = document.querySelectorAll('li');
-        const todos = [];
-        todosEl.forEach(todoEl => {
-            todos.push({
-                text: todoEl.innerText,
-                completed: todoEl.classList.contains('completed')
-            });
+        // Todo durumunu değiştir
+        li.addEventListener('click', function() {
+            li.classList.toggle('completed');
+            saveTodos();
         });
 
+        // Todo'yu sil (sağ click)
+        li.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            li.remove();
+            saveTodos();
+        });
+
+        todosListEl.appendChild(li);
+    }
+
+    /**
+     * Todo'ları localStorage'a kaydet
+     */
+    function saveTodos() {
+        const todos = [];
+        todosListEl.querySelectorAll('.todo-item').forEach(li => {
+            todos.push({
+                id: li.dataset.id || Date.now(),
+                text: li.textContent,
+                completed: li.classList.contains('completed')
+            });
+        });
         localStorage.setItem('todos', JSON.stringify(todos));
+    }
+}
+
+/**
+ * Olay dinleyicileri yönet
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    // myButton
+    const myButton = document.getElementById('myButton');
+    if (myButton) {
+        myButton.addEventListener('click', function() {
+            alert('Butona tıklandı!');
+            console.log('myButton clicked');
+        });
+    }
+
+    // myInput
+    const myInput = document.getElementById('myInput');
+    if (myInput) {
+        myInput.addEventListener('input', function(event) {
+            console.log('Input değer:', event.target.value);
+        });
+    }
+
+    // myForm
+    const myForm = document.getElementById('myForm');
+    if (myForm) {
+        myForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Form gönderildi');
+        });
+    }
+
+    // myListItem
+    const myListItem = document.getElementById('myListItem');
+    if (myListItem) {
+        myListItem.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            console.log('Liste öğesine sağ click yapıldı');
+        });
+    }
+
+    // eventButton
+    const eventButton = document.getElementById('eventButton');
+    if (eventButton) {
+        eventButton.addEventListener('click', function() {
+            alert('Event butonu tıklandı!');
+        });
+    }
+
+    // eventInput
+    const eventInput = document.getElementById('eventInput');
+    if (eventInput) {
+        eventInput.addEventListener('input', function(event) {
+            console.log('Event input değer:', event.target.value);
+        });
+    }
+
+    // eventForm
+    const eventForm = document.getElementById('eventForm');
+    if (eventForm) {
+        eventForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Event formu gönderildi');
+        });
+    }
+
+    // eventListItem
+    const eventListItem = document.getElementById('eventListItem');
+    if (eventListItem) {
+        eventListItem.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            console.log('Event liste öğesine sağ click yapıldı');
+        });
     }
 });
 
-document.getElementById("form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting
-
-    // Get the input value
-    var input = document.getElementById("input").value;
-
-    // Create a new list item
-    var li = document.createElement("li");
-    li.textContent = input;
-
-    // Append the new list item to the todo list
-    document.getElementById("todos").appendChild(li);
-
-    // Clear the input field
-    document.getElementById("input").value = "";
-});
-
-const button = document.getElementById('myButton');
-button.addEventListener('click', () => {
-    alert('Button clicked!');
-});
-document.getElementById('myButton').addEventListener('click', function() {
-    alert('Button clicked!');
-});
-
-const inputField = document.getElementById('myInput');
-inputField.addEventListener('input', (event) => {
-    console.log('Input changed:', event.target.value);
-});
-document.getElementById('myInput').addEventListener('input', function(event) {
-    console.log('Input changed:', event.target.value);
-});
-
-const form = document.getElementById('myForm');
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    console.log('Form submitted');
-});
-document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting
-    console.log('Form submitted');
-});
+console.log('✓ Uygulama başladı');

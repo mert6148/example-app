@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+div.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+section.header {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+section.header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+section.content {
+    margin-top: 20px;
+}
+
+section.content p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+@keyframes identifier {
+
+}

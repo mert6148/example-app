@@ -89,3 +89,22 @@ class Demo {
         return "This is a run method in Demo class.";
     }
 }
+
+class Main {
+    public function start() {
+        $test = new Test();
+        $sample = new Sample();
+        $demo = new Demo();
+
+        echo $test->sample() . "\n";
+        echo $test->trial() . "\n";
+        echo $sample->example() . "\n";
+        echo $sample->demo() . "\n";
+        echo $demo->test() . "\n";
+        echo $demo->run() . "\n";
+    }
+
+    public function execute() {
+        $this->start();
+    }
+}
