@@ -203,4 +203,4 @@
         </script>
     </body>
 </html>
-<?php /**PATH C:\wamp64\www\example-app\resources\views/welcome.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\wamp64\www\example-app\resources\views\welcome.blade.php ENDPATH**/ ?>
